@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -12,8 +10,8 @@ import {
   CardActionArea,
   CardActions,
 } from '@mui/material';
+import dayjs from 'dayjs';
 import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
-import monthNames from '../../constants';
 import { selectArticles, selectLoading } from '../../models/articles/selectors';
 import { fetchArticles } from '../../models/articles/articleSlice';
 
@@ -28,7 +26,7 @@ function ArticlePage() {
   const article = articles.find((e) => e.id === Number(articleId));
 
   if (!loading && article) {
-    const date = new Date(article.publishedAt);
+    const date = dayjs(article.publishedAt).format('DD MMM YYYY, hh:mm');
     return (
       <Card sx={{
         maxWidth: 1100,
@@ -46,8 +44,7 @@ function ArticlePage() {
           />
           <CardContent>
             <Typography component="div" color="text.disabled">
-              {`${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()},
-             ${date.getHours()}:${date.getMinutes() < 10 ? '0' : ''}${date.getMinutes()}`}
+              {date}
             </Typography>
             <Typography sx={{ fontSize: 24, marginTop: '5px' }} component="div">
               {article.title}
