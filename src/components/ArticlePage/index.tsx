@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   Card,
@@ -12,18 +11,20 @@ import {
 } from '@mui/material';
 import dayjs from 'dayjs';
 import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { selectArticles, selectLoading } from '../../models/articles/selectors';
 import { fetchArticles } from '../../models/articles/articleSlice';
+import { Article } from '../../types';
 
-function ArticlePage() {
+const ArticlePage: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const articles = useSelector(selectArticles);
-  const loading = useSelector(selectLoading);
+  const dispatch = useAppDispatch();
+  const articles = useAppSelector(selectArticles);
+  const loading = useAppSelector(selectLoading);
   const { articleId } = useParams();
 
-  useEffect(() => { dispatch(fetchArticles()); }, []);
-  const article = articles.find((e) => e.id === Number(articleId));
+  useEffect(() => { dispatch(fetchArticles()); }, [dispatch]);
+  const article = articles.find((e: Article) => e.id === Number(articleId));
 
   if (!loading && article) {
     const date = dayjs(article.publishedAt).format('DD MMM YYYY, hh:mm');
@@ -63,6 +64,7 @@ function ArticlePage() {
       </Card>
     );
   }
-}
+  return null;
+};
 
 export default ArticlePage;

@@ -1,0 +1,29 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "airbnb/hooks",
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "react/function-component-definition":0,
+    "@typescript-eslint/no-floating-promises":0, 
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "max-len": "off",
+    "@typescript-eslint/type-annotation-spacing": ["warn", {
+      "after": true
+    }],
+    "react/jsx-props-no-spreading": 0
+  }
+}

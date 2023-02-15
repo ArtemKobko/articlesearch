@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -9,16 +8,23 @@ import {
   Button,
   CardActions,
 } from '@mui/material';
-import PropTypes from 'prop-types';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 
-export default function MultiActionAreaCard({
+interface ArticleCardProps {
+  imageUrl: string;
+  title: React.ReactElement;
+  summary: React.ReactElement;
+  publishedAt: string;
+  id: number;
+}
+
+const ArticleCard: React.FC<ArticleCardProps> = ({
   imageUrl,
   title,
   summary,
   publishedAt,
   id,
-}) {
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -57,17 +63,6 @@ export default function MultiActionAreaCard({
       </CardActions>
     </Card>
   );
-}
-MultiActionAreaCard.propTypes = {
-  imageUrl: PropTypes.string.isRequired,
-  title: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape(),
-  ]),
-  summary: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape(),
-  ]),
-  publishedAt: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
 };
+
+export default ArticleCard;
